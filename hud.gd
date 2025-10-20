@@ -1,14 +1,8 @@
 extends CanvasLayer
-
+# custom signal that notifies Main that our button is pressed
 signal start_game
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+# _ready and _process not needed, since this isnt being updated every frame, unlike our entities
 
 func show_message(text):
 	$Message.text = text
@@ -31,11 +25,13 @@ func show_game_over():
 func update_score(score):
 	$ScoreLabel.text = str(score)
 
-
+# signal from StarButton in HUD
+# our pressed signal emits our start_game signal
 func _on_start_button_pressed() -> void:
 	$StartButton.hide()
 	start_game.emit()
 
-
+# signal from MessageTimer in HUD
+# once 2 seconds is up
 func _on_message_timer_timeout() -> void:
 	$Message.hide()
